@@ -37,24 +37,38 @@ export default function Presentation() {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="py-16">
+      <header className="py-6 px-8">
         <Container>
-          <div className="mb-12">
-            <Grid cols={1} lg:cols={2} gap={12} className="items-start">
-              <GridItem>
-                <h1 className="text-5xl lg:text-6xl font-semibold text-primary leading-tight">
-                  Кому подходит обучение French.Super
-                </h1>
-              </GridItem>
-              <GridItem>
-                <p className="text-xl text-foreground leading-relaxed">
-                  Мы работаем с конкретными жизненными задачами. Если вы не уверены, какой сценарий ваш мы начнём с уточнения цели и уровня
-                </p>
-              </GridItem>
-            </Grid>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
+                <span className="text-white text-2xl">⚜️</span>
+              </div>
+              <span className="text-2xl font-bold text-foreground">French.Super</span>
+            </div>
+            <div className="text-foreground text-sm">
+              [Результат в каждом уроке]
+            </div>
           </div>
+        </Container>
+      </header>
 
-          <div className="flex flex-wrap gap-2 mb-12 justify-center">
+      <section className="py-8">
+        <Container>
+          <Grid cols={1} lg:cols={2} gap={16} className="mb-8">
+            <GridItem>
+              <h1 className="text-6xl font-semibold text-primary leading-none">
+                Кому подходит обучение French.Super
+              </h1>
+            </GridItem>
+            <GridItem className="flex items-end">
+              <p className="text-lg text-foreground leading-relaxed">
+                Мы работаем с конкретными жизненными задачами. Если вы не уверены, какой сценарий ваш мы начнём с уточнения цели и уровня
+              </p>
+            </GridItem>
+          </Grid>
+
+          <div className="flex flex-wrap gap-2 mb-8">
             {people.map((person, index) => (
               <User
                 key={index}
