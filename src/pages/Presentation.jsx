@@ -1,5 +1,12 @@
 import { Container, Text, Card, CardContent } from "@/components/ui"
 
+// Static data moved outside component to prevent recreation on each render
+const MARKERS = [
+  "1-на-1 с\u00A0преподавателем (без\u00A0групп)",
+  "План обучения под\u00A0цель и\u00A0уровень",
+  "Прозрачные шаги: что\u00A0делаем → зачем → как\u00A0измеряем прогресс",
+]
+
 // SVG Логотип French.Super
 function Logo({ className }) {
   return (
@@ -24,13 +31,6 @@ function Logo({ className }) {
 }
 
 function Presentation() {
-  // Маркеры для Hero секции
-  const markers = [
-    "1-на-1 с\u00A0преподавателем (без\u00A0групп)",
-    "План обучения под\u00A0цель и\u00A0уровень",
-    "Прозрачные шаги: что\u00A0делаем → зачем → как\u00A0измеряем прогресс"
-  ]
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero секция */}
@@ -45,32 +45,24 @@ function Presentation() {
 
               {/* Заголовок — увеличенный размер */}
               <h1 className="font-inter font-semibold text-primary text-4xl md:text-5xl lg:text-5xl leading-[1.1] tracking-tight">
-                Индивидуальные занятия{" "}
-                <br className="hidden sm:block" />
+                Индивидуальные занятия <br className="hidden sm:block" />
                 по&nbsp;французскому онлайн
               </h1>
 
               {/* Подзаголовок — на 2-3 строки */}
-              <Text
-                variant="subhero"
-                color="muted"
-                as="p"
-                className="mt-6 max-w-md"
-              >
+              <Text variant="subhero" color="muted" as="p" className="mt-6 max-w-md">
                 Под&nbsp;вашу задачу: переезд, учёба, работа или&nbsp;«для&nbsp;себя».
               </Text>
             </div>
 
             {/* Правая колонка — пустое место для картинки */}
-            <div className="hidden lg:block">
-              {/* Здесь будет изображение */}
-            </div>
+            <div className="hidden lg:block">{/* Здесь будет изображение */}</div>
           </div>
 
           {/* 3 маркера в карточках */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {markers.map((marker, index) => (
-              <Card key={index} variant="default" className="h-full">
+            {MARKERS.map((marker) => (
+              <Card key={marker} variant="default" className="h-full">
                 <CardContent className="p-5">
                   <Text variant="body" className="text-foreground">
                     {marker}
