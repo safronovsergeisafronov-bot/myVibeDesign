@@ -1,13 +1,13 @@
 import { Container } from "@/components/ui/container"
 import { Grid, GridItem } from "@/components/ui/grid"
 import { Card, CardContent } from "@/components/ui/card"
-import { Passport, GraduationCap, Briefcase, Compass, User } from "lucide-react"
+import { BookOpen, GraduationCap, Briefcase, Compass, User } from "lucide-react"
 
 export default function Presentation() {
   const cards = [
     {
       variant: "default",
-      icon: Passport,
+      icon: BookOpen,
       title: "Переезд / жизнь во Франции",
       description: "Для бытовых ситуаций и адаптации: жильё, документы, медицина, общение"
     },
