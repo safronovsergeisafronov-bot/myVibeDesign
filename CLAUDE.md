@@ -3,6 +3,229 @@
 ## Overview
 This document contains the design system specifications from Figma that must be followed when creating new components or modifying existing ones.
 
+---
+
+# 🔒 CRITICAL: Scope Control & Change Management
+
+## Preventing Unintended Changes
+
+**THIS IS THE MOST IMPORTANT SECTION. READ IT FIRST.**
+
+When working with this project, you MUST follow these strict rules to prevent unintended modifications:
+
+### ⚠️ Core Rule: Change ONLY What Is Explicitly Requested
+
+```
+✅ GOOD REQUEST HANDLING:
+User: "Change the button color in Header.jsx from red to blue"
+AI:
+  1. Read Header.jsx
+  2. Change ONLY the button color
+  3. DO NOT touch imports
+  4. DO NOT touch other components
+  5. DO NOT add comments
+  6. DO NOT reformat code
+  7. DO NOT "improve" anything else
+
+❌ BAD REQUEST HANDLING:
+User: "Change the button color in Header.jsx from red to blue"
+AI:
+  1. Changes button color ✓
+  2. Also refactors the component structure ✗
+  3. Adds TypeScript types ✗
+  4. Adds comments "explaining" the change ✗
+  5. Reorganizes imports ✗
+  6. "Improves" variable names ✗
+  7. Adds prop validation ✗
+```
+
+### 🚫 Absolute Prohibitions
+
+Unless explicitly requested, you MUST NOT:
+
+1. **NO Refactoring**
+   - Do not restructure code
+   - Do not extract components
+   - Do not rename variables
+   - Do not change code organization
+
+2. **NO "Improvements"**
+   - Do not add error handling "for safety"
+   - Do not add validation "for best practices"
+   - Do not optimize performance "while we're here"
+   - Do not add features "that might be useful"
+
+3. **NO Documentation Changes**
+   - Do not add comments unless requested
+   - Do not add JSDoc unless requested
+   - Do not add type annotations unless requested
+   - Do not update README unless requested
+
+4. **NO Style Changes**
+   - Do not reformat code unless requested
+   - Do not reorganize imports unless requested
+   - Do not change whitespace unless requested
+   - Do not "fix" code style unless requested
+
+5. **NO Scope Creep**
+   - If asked to change file A, do not touch files B, C, D
+   - If asked to change component X, do not change components Y, Z
+   - If asked to change one property, do not change other properties
+
+### ✅ Required Behavior
+
+1. **Read Before Acting**
+   ```
+   ALWAYS read the exact file mentioned before making changes.
+   Understand the current state before modifying.
+   ```
+
+2. **Surgical Precision**
+   ```
+   Make the MINIMUM change necessary.
+   Change only the specific lines/properties requested.
+   Leave everything else untouched.
+   ```
+
+3. **Confirm Scope for Large Changes**
+   ```
+   If a request seems to require touching multiple files:
+   - STOP
+   - List all files that would be affected
+   - ASK for confirmation before proceeding
+   ```
+
+4. **Report Exactly What Changed**
+   ```
+   After making changes, report:
+   - Which file(s) were modified
+   - Exactly what changed (line numbers)
+   - Nothing else
+   ```
+
+### 📋 Examples of Correct Behavior
+
+#### Example 1: Single Property Change
+```jsx
+// User Request: "Change the hero title from 'Welcome' to 'Hello' in HomePage.jsx"
+
+// ✅ CORRECT:
+// Read HomePage.jsx
+// Find: <Text variant="hero">Welcome</Text>
+// Change to: <Text variant="hero">Hello</Text>
+// Done. Nothing else touched.
+
+// ❌ INCORRECT:
+// - Also change subtitle "while we're here"
+// - Add comments explaining the change
+// - Refactor the hero section
+// - Update imports
+```
+
+#### Example 2: Styling Change
+```jsx
+// User Request: "Make the card background white in ProfileCard.jsx"
+
+// ✅ CORRECT:
+// Read ProfileCard.jsx
+// Find: <Card className="bg-gray-100">
+// Change to: <Card className="bg-white">
+// Done.
+
+// ❌ INCORRECT:
+// - Also change padding "for better spacing"
+// - Add shadow "for better design"
+// - Refactor card structure
+// - Add more Card variants
+```
+
+#### Example 3: Multiple Files (Requires Confirmation)
+```jsx
+// User Request: "Update all buttons to use the new variant"
+
+// ✅ CORRECT:
+AI: "This change will affect the following files:
+- src/components/Header.jsx (2 buttons)
+- src/components/Footer.jsx (1 button)
+- src/pages/HomePage.jsx (3 buttons)
+- src/pages/AboutPage.jsx (1 button)
+
+Should I proceed with updating all 7 buttons across these 4 files?"
+
+[Wait for user confirmation]
+
+// ❌ INCORRECT:
+// Just start changing all files without asking
+```
+
+### 🎯 Decision Matrix: Should I Make This Change?
+
+Use this checklist for EVERY change:
+
+| Question | Answer | Action |
+|----------|--------|--------|
+| Did user explicitly request this change? | YES | ✅ Proceed |
+| Did user explicitly request this change? | NO | ❌ Skip it |
+| Is this change in a different file? | YES | ❌ Skip it (unless explicitly requested) |
+| Is this "improving" code quality? | YES | ❌ Skip it (unless explicitly requested) |
+| Am I adding comments? | YES | ❌ Skip it (unless explicitly requested) |
+| Am I refactoring? | YES | ❌ Skip it (unless explicitly requested) |
+| Is this formatting/style? | YES | ❌ Skip it (unless explicitly requested) |
+
+**If in doubt, DO NOT make the change. Ask first.**
+
+### 🔍 Before Committing: Self-Check
+
+Before creating a commit, verify:
+
+```bash
+# 1. Check what files changed
+git status
+
+# Expected: ONLY files explicitly mentioned by user
+# If other files appear: ❌ STOP. Undo those changes.
+
+# 2. Check what changed in each file
+git diff
+
+# Expected: ONLY the specific changes requested
+# If you see other changes: ❌ STOP. Undo those changes.
+
+# 3. Review line-by-line
+# Ask yourself for EACH changed line:
+# - Did user request this specific change?
+# - If NO: ❌ Undo it
+```
+
+### 💡 When User Requests Are Unclear
+
+If a request is vague or could affect multiple areas:
+
+```
+❌ DON'T: Assume and make broad changes
+
+✅ DO: Ask clarifying questions
+
+Examples:
+- "Should I update this in all components or just HomePage.jsx?"
+- "Do you want me to change only the header button or all buttons?"
+- "This would require changes in 5 files. Should I proceed?"
+```
+
+### 🎓 Summary: The Golden Rules
+
+1. **Read first, change second**
+2. **Change ONLY what was requested**
+3. **No refactoring without permission**
+4. **No improvements without permission**
+5. **No comments without permission**
+6. **Ask when scope is unclear**
+7. **Verify changes before committing**
+
+**Remember: The best code change is the one that does exactly what was asked—nothing more, nothing less.**
+
+---
+
 ## Color Palette
 
 ### CSS Variables
