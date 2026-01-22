@@ -1,0 +1,406 @@
+/* Оптимизированная загрузка шрифтов с font-display: swap для предотвращения блокировки рендера */
+/* Загружаем только необходимые начертания для уменьшения размера */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base colors - Figma specification */
+    --background: 40 35% 88%;
+    /* #EFE7DA */
+    --foreground: 0 0% 18%;
+    /* #2D2D2D */
+
+    /* Card colors */
+    --card: 0 0% 100%;
+    /* #FFF */
+    --card-foreground: 0 0% 18%;
+    /* #2D2D2D */
+
+    /* Primary colors */
+    --primary: 346 92% 18%;
+    /* #56051B */
+    --primary-foreground: 0 0% 100%;
+    /* #FFF */
+
+    /* Accent colors */
+    --accent: 0 0% 2%;
+    /* #0D0101 */
+    --accent-foreground: 0 0% 100%;
+
+    /* UI element colors */
+    --muted: 40 35% 88%;
+    --muted-foreground: 0 0% 45%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 346 92% 18%;
+
+    --secondary: 346 35% 55%;
+    /* #AA506A */
+    --secondary-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Status colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 0%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    /* Language level colors (A1-C2) */
+    --level-a1: 142 76% 85%;
+    /* Light green */
+    --level-a2: 142 76% 75%;
+    /* Green */
+    --level-b1: 38 92% 75%;
+    /* Yellow */
+    --level-b2: 25 95% 70%;
+    /* Orange */
+    --level-c1: 16 90% 68%;
+    /* Red-orange */
+    --level-c2: 346 80% 60%;
+    /* Burgundy-red */
+
+    /* Status colors for lessons/courses */
+    --status-pending: 43 100% 85%;
+    /* Light yellow */
+    --status-in-progress: 199 89% 80%;
+    /* Light blue */
+    --status-completed: 142 76% 80%;
+    /* Light green */
+
+    /* Chart colors for data visualization */
+    --chart-1: 346 92% 18%;
+    /* Primary burgundy */
+    --chart-2: 199 89% 48%;
+    /* Blue */
+    --chart-3: 142 76% 36%;
+    /* Green */
+    --chart-4: 38 92% 50%;
+    /* Orange */
+    --chart-5: 280 70% 55%;
+    /* Purple */
+    --chart-6: 346 35% 55%;
+    /* Secondary burgundy */
+    --chart-7: 199 70% 65%;
+    /* Light blue */
+    --chart-8: 142 60% 55%;
+    /* Light green */
+    --chart-9: 38 80% 65%;
+    /* Light orange */
+    --chart-10: 280 60% 70%;
+    /* Light purple */
+
+    /* Border radius */
+    --radius: 25px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Z-index layers */
+    --z-dropdown: 50;
+    --z-sticky: 100;
+    --z-modal: 200;
+    --z-popover: 300;
+    --z-tooltip: 400;
+    --z-toast: 500;
+
+    /* Transitions */
+    --transition-fast: 150ms;
+    --transition-base: 200ms;
+    --transition-slow: 300ms;
+    --transition-slower: 500ms;
+
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Icon sizes */
+    --icon-xs: 12px;
+    --icon-sm: 16px;
+    --icon-base: 20px;
+    --icon-lg: 24px;
+    --icon-xl: 32px;
+
+    /* Opacity tokens */
+    --opacity-disabled: 0.38;
+    --opacity-muted: 0.6;
+    --opacity-hover: 0.8;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --background: 0 0% 7%;
+    /* #121212 */
+    --foreground: 0 0% 95%;
+    /* #F2F2F2 */
+
+    --card: 0 0% 10%;
+    /* #1A1A1A */
+    --card-foreground: 0 0% 95%;
+
+    --primary: 346 70% 45%;
+    /* Lighter burgundy for dark mode */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 346 50% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 346 70% 45%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 45%;
+    --warning: 38 80% 55%;
+    --info: 199 80% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-onest;
+  }
+
+  /* Headings use Inter font */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+
+  /* Typography utilities based on Figma specification */
+  .text-hero {
+    font-family: 'Inter', sans-serif;
+    font-size: 82px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -2.46px;
+  }
+
+  .text-subhero {
+    font-family: 'Inter', sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 115%;
+  }
+
+  /* Heading utilities with Inter */
+  .text-h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 110%;
+    letter-spacing: -1px;
+  }
+
+  .text-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 115%;
+    letter-spacing: -0.5px;
+  }
+
+  .text-h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 120%;
+  }
+
+  .text-h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 125%;
+  }
+
+  .text-h5 {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 130%;
+  }
+
+  .text-h6 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 130%;
+  }
+
+  .text-caption-dark {
+    font-family: 'Onest', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+
+  /* Body text sizes with Onest */
+  .text-body-xs {
+    font-family: 'Onest', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .text-body-sm {
+    font-family: 'Onest', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .text-body-base {
+    font-family: 'Onest', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
+  }
+
+  .text-body-lg {
+    font-family: 'Onest', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 160%;
+  }
+
+  .text-body-xl {
+    font-family: 'Onest', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 160%;
+  }
+
+  .text-body-2xl {
+    font-family: 'Onest', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  /* Label sizes */
+  .text-label-sm {
+    font-family: 'Onest', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .text-label {
+    font-family: 'Onest', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+  }
+
+  /* Code/Monospace styles */
+  .text-code {
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%;
+    background-color: hsl(var(--muted));
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .text-code-block {
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 180%;
+    background-color: hsl(var(--muted));
+    padding: 16px;
+    border-radius: var(--radius);
+  }
+
+  /* Overline (for labels above headings) */
+  .text-overline {
+    font-family: 'Onest', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: hsl(var(--primary));
+  }
+
+  /* Display (extra large text) */
+  .text-display {
+    font-family: 'Inter', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -4px;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Focus ring utility for accessibility */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+}

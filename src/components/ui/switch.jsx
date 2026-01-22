@@ -1,0 +1,65 @@
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+const Switch = React.forwardRef(({
+    className,
+    checked,
+    onCheckedChange,
+    disabled,
+    size = "default",
+    ...props
+}, ref) => {
+    const [isChecked, setIsChecked] = React.useState(checked || false)
+
+    React.useEffect(() => {
+        if (checked !== undefined) {
+            setIsChecked(checked)
+        }
+    }, [checked])
+
+    const handleToggle = () => {
+        if (disabled) return
+        const newValue = !isChecked
+        setIsChecked(newValue)
+        onCheckedChange?.(newValue)
+    }
+
+    const sizes = {
+        sm: { track: "h-5 w-9", thumb: "h-4 w-4", translate: "translate-x-4" },
+        default: { track: "h-6 w-11", thumb: "h-5 w-5", translate: "translate-x-5" },
+        lg: { track: "h-7 w-14", thumb: "h-6 w-6", translate: "translate-x-7" },
+    }
+
+    const currentSize = sizes[size]
+
+    return (
+        <button
+            type="button"
+            role="switch"
+            aria-checked={isChecked}
+            ref={ref}
+            disabled={disabled}
+            onClick={handleToggle}
+            className={cn(
+                "inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "disabled:cursor-not-allowed disabled:opacity-50",
+                isChecked ? "bg-primary" : "bg-input",
+                currentSize.track,
+                className
+            )}
+            {...props}
+        >
+            <span
+                className={cn(
+                    "pointer-events-none block rounded-full bg-white shadow-lg ring-0 transition-transform",
+                    currentSize.thumb,
+                    isChecked ? currentSize.translate : "translate-x-0"
+                )}
+            />
+        </button>
+    )
+})
+Switch.displayName = "Switch"
+
+export { Switch }
